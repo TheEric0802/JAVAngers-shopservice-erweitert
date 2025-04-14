@@ -51,4 +51,18 @@ class ShopServiceTest {
                 () -> assertTrue(completed.isEmpty())
         );
     }
+
+    @Test
+    void updateOrderTest() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1");
+        Order order = shopService.addOrder(productsIds);
+
+        //WHEN
+        shopService.updateOrder(order.id(), OrderStatus.COMPLETED);
+
+        //THEN
+        assertEquals(List.of(order.withStatus(OrderStatus.COMPLETED)), shopService.getOrdersByStatus(OrderStatus.COMPLETED));
+    }
 }
