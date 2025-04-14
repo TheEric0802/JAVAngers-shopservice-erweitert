@@ -55,14 +55,14 @@ class OrderListRepoTest {
         Instant timestamp = Instant.now();
         OrderListRepo repo = new OrderListRepo();
         Product product = new Product("1", "Apfel");
-        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, Instant.now());
+        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, timestamp);
 
         //WHEN
         Order actual = repo.addOrder(newOrder);
 
         //THEN
         Product product1 = new Product("1", "Apfel");
-        Order expected = new Order("1", List.of(product1), OrderStatus.PROCESSING, Instant.now());
+        Order expected = new Order("1", List.of(product1), OrderStatus.PROCESSING, timestamp);
         assertEquals(actual, expected);
         assertEquals(repo.getOrderById("1"), expected);
     }
