@@ -40,4 +40,12 @@ public class ShopService {
     public void updateOrder(String id, OrderStatus newStatus) {
         orderRepo.updateOrderStatus(id, newStatus);
     }
+
+    public Map<OrderStatus, Order> getOldestOrderPerStatus() {
+        Map<OrderStatus, Order> result = new HashMap<>();
+        for (OrderStatus status : OrderStatus.values()) {
+            getOrdersByStatus(status).stream().min(Comparator.comparing(Order::timestamp)).ifPresent(order -> result.put(status, order));
+        }
+        return result;
+    }
 }
