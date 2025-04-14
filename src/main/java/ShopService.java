@@ -1,9 +1,17 @@
+import lombok.RequiredArgsConstructor;
+
 import java.time.Instant;
 import java.util.*;
 
+@RequiredArgsConstructor
 public class ShopService {
-    private ProductRepo productRepo = new ProductRepo();
-    private OrderRepo orderRepo = new OrderMapRepo();
+    private final ProductRepo productRepo;
+    private final OrderRepo orderRepo;
+
+    public ShopService() {
+        this.productRepo = new ProductRepo();
+        this.orderRepo = new OrderListRepo();
+    }
 
     public Order addOrder(List<String> productIds) throws NoSuchElementException {
         List<Product> products = new ArrayList<>();
