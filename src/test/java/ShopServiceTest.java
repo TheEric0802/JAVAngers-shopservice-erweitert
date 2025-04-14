@@ -33,4 +33,22 @@ class ShopServiceTest {
         //THEN
         assertNull(actual);
     }
+
+    @Test
+    void getOrdersByStatusTest() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1");
+        Order order = shopService.addOrder(productsIds);
+
+        //WHEN
+        List<Order> processing = shopService.getOrdersByStatus(OrderStatus.PROCESSING);
+        List<Order> completed = shopService.getOrdersByStatus(OrderStatus.COMPLETED);
+
+        //THEN
+        assertAll(
+                () -> assertEquals(List.of(order), processing),
+                () -> assertTrue(completed.isEmpty())
+        );
+    }
 }
