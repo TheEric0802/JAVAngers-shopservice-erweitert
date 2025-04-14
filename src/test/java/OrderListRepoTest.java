@@ -11,10 +11,11 @@ class OrderListRepoTest {
     @Test
     void getOrders() {
         //GIVEN
+        Instant timestamp = Instant.now();
         OrderListRepo repo = new OrderListRepo();
 
         Product product = new Product("1", "Apfel");
-        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, Instant.now());
+        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, timestamp);
         repo.addOrder(newOrder);
 
         //WHEN
@@ -23,7 +24,7 @@ class OrderListRepoTest {
         //THEN
         List<Order> expected = new ArrayList<>();
         Product product1 = new Product("1", "Apfel");
-        expected.add(new Order("1", List.of(product1), OrderStatus.PROCESSING, Instant.now()));
+        expected.add(new Order("1", List.of(product1), OrderStatus.PROCESSING, timestamp));
 
         assertEquals(actual, expected);
     }
@@ -31,10 +32,11 @@ class OrderListRepoTest {
     @Test
     void getOrderById() {
         //GIVEN
+        Instant timestamp = Instant.now();
         OrderListRepo repo = new OrderListRepo();
 
         Product product = new Product("1", "Apfel");
-        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, Instant.now());
+        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, timestamp);
         repo.addOrder(newOrder);
 
         //WHEN
@@ -42,7 +44,7 @@ class OrderListRepoTest {
 
         //THEN
         Product product1 = new Product("1", "Apfel");
-        Order expected = new Order("1", List.of(product1), OrderStatus.PROCESSING, Instant.now());
+        Order expected = new Order("1", List.of(product1), OrderStatus.PROCESSING, timestamp);
 
         assertEquals(actual, expected);
     }
@@ -50,6 +52,7 @@ class OrderListRepoTest {
     @Test
     void addOrder() {
         //GIVEN
+        Instant timestamp = Instant.now();
         OrderListRepo repo = new OrderListRepo();
         Product product = new Product("1", "Apfel");
         Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, Instant.now());
