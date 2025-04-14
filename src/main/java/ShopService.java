@@ -7,10 +7,12 @@ import java.util.*;
 public class ShopService {
     private final ProductRepo productRepo;
     private final OrderRepo orderRepo;
+    private final IdService idService;
 
     public ShopService() {
         this.productRepo = new ProductRepo();
         this.orderRepo = new OrderListRepo();
+        this.idService = new IdService();
     }
 
     public Order addOrder(List<String> productIds) throws NoSuchElementException {
@@ -24,7 +26,7 @@ public class ShopService {
             products.add(productToOrder.get());
         }
 
-        Order newOrder = new Order(UUID.randomUUID().toString(), products, OrderStatus.PROCESSING, Instant.now());
+        Order newOrder = new Order(idService.generateId(), products, OrderStatus.PROCESSING, Instant.now());
 
         return orderRepo.addOrder(newOrder);
     }
